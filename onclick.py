@@ -86,6 +86,13 @@ print('tıkladı3')
 
 time.sleep(3)
 dropdown4 = Select(driver.find_element(By.ID, 'step_4_select'))
+options = dropdown4.options
+
+# Print the visible text of each option in the dropdown
+for option in options:
+    print(option.text)
+
+
 time.sleep(3)
 
 # Select a manufacturer (e.g., 'ABI')
