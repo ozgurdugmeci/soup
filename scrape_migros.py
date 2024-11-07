@@ -17,7 +17,7 @@ on='https://www.migros.com.tr/arama?q='
 
 ek='&sirala=akilli-siralama'
 #link=iki+pagy+ek
-search= 'deterjan'
+search= 'şampuan'
 iki=on+search+'&sayfa='
 link=on+search
 url_liste=[]
@@ -52,12 +52,21 @@ for row in parca:
  print(namo)
  
  parcax=row.find('div',class_='price-new subtitle-1 ng-star-inserted')
- 
+ #price subtitle-1 ng-star-inserted
+ #price subtitle-1 ng-star-inserted
  if parcax:
   raf_fiyat=parcax.text
  else:
   raf_fiyat='-'
  print(raf_fiyat) 
+ parcax=row.find('div',class_='price subtitle-1 ng-star-inserted')
+ if parcax:
+  diger_fiyat=parcax.text 
+ else:
+  diger_fiyat='-' 
+ print(diger_fiyat)
+ 
+ 
  parcax=row.find('div',class_='unit-price ng-star-inserted')
  if parcax:
   birim_fiyat=parcax.text 
@@ -70,7 +79,7 @@ for row in parca:
  else:
   single_price='-'
  print(single_price)
- parcax=row.find('div',class_='price mat-caption-bold')
+ parcax=row.find('div',id='sale-price')
  if parcax:
   money_card=parcax.text
  else:
@@ -80,6 +89,7 @@ for row in parca:
  dummy.append(namo)
  dummy.append(raf_fiyat)
  dummy.append(single_price)
+ dummy.append(diger_fiyat)
  dummy.append(money_card)
  dummy.append(birim_fiyat)
  esas.append(dummy)
@@ -124,6 +134,13 @@ while i<=20  :
    else:
     raf_fiyat='-'
    print(raf_fiyat) 
+   parcax=row.find('div',class_='price subtitle-1 ng-star-inserted')
+
+   if parcax:
+    diger_fiyat=parcax.text 
+   else:
+    diger_fiyat='-' 
+   print(diger_fiyat)
    parcax=row.find('div',class_='unit-price ng-star-inserted')
    if parcax:
     birim_fiyat=parcax.text 
@@ -136,7 +153,7 @@ while i<=20  :
    else:
     single_price='-'
    print(single_price)
-   parcax=row.find('div',class_='price mat-caption-bold')
+   parcax=row.find('div',id='sale-price')
    if parcax:
     money_card=parcax.text
    else:
@@ -146,6 +163,7 @@ while i<=20  :
    dummy.append(namo)
    dummy.append(raf_fiyat)
    dummy.append(single_price)
+   dummy.append(diger_fiyat)
    dummy.append(money_card)
    dummy.append(birim_fiyat)
    esas.append(dummy)
@@ -160,7 +178,7 @@ while i<=20  :
 driver.quit()
 
 df=pd.DataFrame(esas)
-df.columns=['No','Urun','Raf_Fiyat','Single_Price','Money_Card_Fiyat','Birim_Fiyat'] 
+df.columns=['No','Urun','Raf_Fiyat','Single_Price','Single_Price2','Money_Card_Fiyat','Birim_Fiyat'] 
 writer = pd.ExcelWriter('migros.xlsx', engine='xlsxwriter')
 df.to_excel(writer,'liste')
 
